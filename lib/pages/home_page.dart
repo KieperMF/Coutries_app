@@ -1,3 +1,4 @@
+import 'package:countries_app/pages/country_page.dart';
 import 'package:countries_app/requests/country_request.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> {
             builder: (context, _) {
               if (countries != null) {
                 return ListView.builder(
-                  physics:const BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: countries!.length,
                     itemBuilder: (context, index) {
@@ -41,11 +42,20 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           SizedBox(
                             width: 200,
-                            child: Image(image: NetworkImage(
-                              countries![index].flag
-                            )),
+                            child: Image(
+                                image: NetworkImage(countries![index].flag)),
                           ),
-                          
+                          TextButton(
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.black)),
+                              onPressed: () {
+                                countrySelected = countries![index];
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) =>
+                                            const CountryPage())));
+                              },
+                              child: Text(countries![index].name, style:const TextStyle(color: Colors.white),))
                         ],
                       );
                     });
