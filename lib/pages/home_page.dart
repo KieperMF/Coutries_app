@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                       return Column(
                         children: [
                           SizedBox(
-                            width: 200,
+                            width: 250,
                             child: Image(
                                 image: NetworkImage(countries![index].flag)),
                           ),
