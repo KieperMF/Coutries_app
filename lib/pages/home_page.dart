@@ -29,41 +29,86 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Countries'),
       ),
       body: SingleChildScrollView(
-        child: ListenableBuilder(
-            listenable: countriesRequest,
-            builder: (context, _) {
-              if (countries != null) {
-                return ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: countries!.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          SizedBox(
-                            width: 250,
-                            child: Image(
-                                image: NetworkImage(countries![index].flag)),
-                          ),
-                          TextButton(
-                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.black)),
-                              onPressed: () {
-                                countrySelected = countries![index];
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: ((context) =>
-                                            const CountryPage())));
-                              },
-                              child: Text(countries![index].name, style:const TextStyle(color: Colors.white),))
-                        ],
-                      );
-                    });
-              } else {
-                return const Text("Carregando");
-              }
-            }),
-      ),
+          child: Column(
+        children: [
+          DropdownButton(
+            value: DropdownContinent,
+            hint: const Text("Filter by Continent"),
+            onChanged: (String? newContinent) {
+              countriesRequest.requestContinents(newContinent!);
+              setState(() {
+                DropdownContinent = newContinent;
+              });
+            },
+            items: continents.map<DropdownMenuItem<String>>((String conti) {
+              return DropdownMenuItem<String>(
+                value: conti,
+                child: Text(conti),
+              );
+            }).toList(),
+          ),
+          ListenableBuilder(
+              listenable: countriesRequest,
+              builder: (context, _) {
+                if (countries != null && DropdownContinent == null || DropdownContinent == "Clean") {
+                  return ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: countries!.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            SizedBox(
+                              width: 250,
+                              child: Image(
+                                  image: NetworkImage(countries![index].flag)),
+                            ),
+                            TextButton(
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.black)),
+                                onPressed: () {
+                                  countrySelected = countries![index];
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) =>
+                                              const CountryPage())));
+                                },
+                                child: Text(
+                                  countries![index].name,
+                                  style: const TextStyle(color: Colors.white),
+                                )),
+                            if (countriesPerConti != null) ...[]
+                          ],
+                        );
+                      });
+                } else if (countriesPerConti != null) {
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: countriesPerConti!.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            const Padding(padding: EdgeInsets.all(10)),
+                            SizedBox(
+                              width: 250,
+                              child: Image(
+                                  image: NetworkImage(
+                                      countriesPerConti![index].flag)),
+                            ),
+                            Text(countriesPerConti![index].countryName),
+                          ],
+                        );
+                      });
+                } else {
+                  return const Text("Carregando");
+                }
+              }),
+        ],
+      )),
     );
   }
 }

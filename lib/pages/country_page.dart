@@ -40,7 +40,6 @@ class _CountryPageState extends State<CountryPage> {
               Text('Continent: ${countrySelected!.continent}', style:const TextStyle(fontSize: 18),),
               const Padding(padding: EdgeInsets.all(5)),
               Text('Population: ${countrySelected!.population}', style:const TextStyle(fontSize: 18),),
-
             ]
           ],
         ),

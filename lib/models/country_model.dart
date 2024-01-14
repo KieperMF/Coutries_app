@@ -30,11 +30,13 @@ class Country {
         population: json['population']);
   }
 
-  static List<Country> fromJsonList(Map<String, dynamic> jsonData) {
+  static List<Country> fromJsonList(Map<dynamic, dynamic> jsonData) {
     List<Country> countries = [];
     jsonData.forEach((key, value) {
       countries.add(Country.fromJson(value));
     });
     return countries;
   }
+
+  
 }
