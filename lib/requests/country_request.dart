@@ -10,7 +10,7 @@ List<ContinentModel>? countriesPerConti;
 Country? countrySelected;
 ContinentModel? countryperContSelected;
 String? DropdownContinent;
-List<String> continents = ["America","Europe","Africa","Asia","Oceania","Clean"];
+List<String> continents = ["America","Europe","Africa","Asia","Oceania","Back"];
 
 class CountriesRequest extends ChangeNotifier{
   Future<void> requestCountries() async{

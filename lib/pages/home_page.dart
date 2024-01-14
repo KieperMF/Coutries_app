@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
           ListenableBuilder(
               listenable: countriesRequest,
               builder: (context, _) {
-                if (countries != null && DropdownContinent == null || DropdownContinent == "Clean") {
+                if (countries != null && DropdownContinent == null || DropdownContinent == "Back") {
                   return ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
+                            const Padding(padding: EdgeInsets.all(10)),
                             SizedBox(
                               width: 250,
                               child: Image(
