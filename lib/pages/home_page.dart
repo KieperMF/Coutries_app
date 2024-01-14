@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
-                            const Padding(padding: EdgeInsets.all(10)),
+                            const Padding(padding: EdgeInsets.all(12)),
                             SizedBox(
                               width: 250,
                               child: Image(
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
-                            const Padding(padding: EdgeInsets.all(10)),
+                            const Padding(padding: EdgeInsets.all(12)),
                             SizedBox(
                               width: 250,
                               child: Image(
